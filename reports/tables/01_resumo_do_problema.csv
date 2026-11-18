@@ -1,0 +1,19 @@
+indicador,hotel,valor,unidade
+Reservas na base tratada,Todos,119208.0,reservas
+Reservas canceladas,Todos,44198.0,reservas
+Taxa de cancelamento,Todos,37.08,%
+Receita estimada de todas as reservas,Todos,42708813.15,€
+Receita estimada das reservas canceladas,Todos,16721837.12,€
+Parte da receita estimada que foi cancelada,Todos,39.15,%
+Reservas na base tratada,Hotel de cidade,79162.0,reservas
+Reservas canceladas,Hotel de cidade,33078.0,reservas
+Taxa de cancelamento,Hotel de cidade,41.79,%
+Receita estimada das reservas canceladas,Hotel de cidade,10879659.78,€
+Reservas na base tratada,Resort,40046.0,reservas
+Reservas canceladas,Resort,11120.0,reservas
+Taxa de cancelamento,Resort,27.77,%
+Receita estimada das reservas canceladas,Resort,5842177.34,€
+Reservas no treino (chegadas até 31/12/2016),Todos,78589.0,reservas
+Taxa de cancelamento no treino,Todos,36.22,%
+Reservas no teste (chegadas em 2017),Todos,40619.0,reservas
+Taxa de cancelamento no teste,Todos,38.74,%
