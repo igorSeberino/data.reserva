@@ -1,0 +1,10 @@
+problema,colunas,linhas_afetadas,o_que_fizemos,percentual_das_linhas
+Número de crianças em branco,children,4,Preenchido com 0,0.003
+País em branco,country,488,Preenchido com 'Desconhecido',0.409
+Agência em branco (normal: reserva sem agência),agent,16340,Vira a coluna tem_agente (0/1); o código é descartado,13.686
+Empresa em branco (normal: reserva sem empresa),company,112593,Vira a coluna tem_empresa (0/1); o código é descartado,94.307
+Reserva com zero hóspedes,adults + children + babies,180,Removida (impossível),0.151
+Diária negativa,adr,1,Removida (impossível),0.001
+Diária acima de € 1.000,adr,1,Removida (impossível),0.001
+Linha idêntica a outra,todas,31994,Mantida (em geral são reservas de grupo reais),26.798
+Coluna só conhecida depois da chegada ou do cancelamento,"reservation_status, reservation_status_date, assigned_room_type, booking_changes",119390,Coluna descartada (seria 'colar na prova'),100.0
