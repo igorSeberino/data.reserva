@@ -5,7 +5,14 @@
 > quais reservas têm mais chance de cancelar e **recomendar** o que a gerência pode fazer a respeito.
 
 <!-- SEÇÃO: RESUMO EXECUTIVO — Gabriel (#5) -->
-_Resumo executivo para a gerência do hotel: a preencher na issue #5._
+**O problema:** quase 4 em cada 10 reservas (37%) dos dois hotéis são canceladas, o que deixou
+**€ 16,7 milhões** em quartos vazios em pouco mais de 2 anos.
+**O que descobrimos:** cancelam mais as reservas feitas com muita antecedência e as "não
+reembolsáveis"; cancelam menos os hóspedes que fazem pedidos especiais.
+**O que o radar de risco faz:** dá a cada reserva uma nota (baixo, médio ou alto). Em 2017, na faixa
+alta, **81%** cancelaram; ela tem 23% das reservas e 48% dos cancelamentos.
+**Quanto pode valer:** cerca de **€ 0,67 milhão** em 8 meses, se o hotel recuperar 20% (estimativa).
+**O que recomendamos:** um piloto de **3 meses** no Hotel de cidade, agindo sobre a faixa alta.
 <!-- FIM: RESUMO EXECUTIVO -->
 
 ---
@@ -172,7 +179,24 @@ comparando com um grupo sem contato para medir o ganho real. Detalhes no
 <!-- SEÇÃO: 6 IMPLANTAÇÃO E RECOMENDAÇÕES — Gabriel (#5) -->
 ## 6. O que o hotel deve fazer
 
-_A preencher na issue #5._
+**Toda manhã**, as reservas novas recebem uma nota de risco, e a equipe de reservas recebe a lista de
+**alto risco** das chegadas dos próximos 30 dias. A ação depende da faixa:
+
+| Faixa | O que fazer |
+|---|---|
+| **Alto** (81% cancelaram em 2017) | Contato de confirmação 7 a 14 dias antes, oferecer troca de data em vez de cancelamento e, sem resposta, considerar revenda controlada do quarto |
+| **Médio** (52%) | Lembrete automático por e-mail com os serviços do hotel |
+| **Baixo** (19%) | Nada muda |
+
+**Piloto:** 3 meses no **Hotel de cidade** (a maior taxa de cancelamento: 42%, contra 28% do
+resort), com o resort como comparação. **Acompanhamento mensal:** taxa real de cancelamento por
+faixa, receita recuperada e reclamações de hóspedes contatados. O radar deve ser treinado de novo
+a cada 3 meses. Cuidados: privacidade (RGPD) e nunca tratar o hóspede como suspeito.
+
+- Plano completo: [`docs/06_implantacao.md`](docs/06_implantacao.md)
+- Slides: [`apresentacao/apresentacao.pdf`](apresentacao/apresentacao.pdf) · fonte em [`apresentacao/slides.md`](apresentacao/slides.md)
+- Roteiro de fala: [`apresentacao/roteiro.md`](apresentacao/roteiro.md)
+- Exemplo de lista diária: [`reports/tables/06_exemplo_lista_diaria.csv`](reports/tables/06_exemplo_lista_diaria.csv)
 <!-- FIM: GABRIEL -->
 
 ---
