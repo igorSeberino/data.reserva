@@ -37,7 +37,7 @@ section::before {
 h1, h2 { font-family: "Inter Display", "Inter", sans-serif; letter-spacing: -0.02em; }
 h2 { color: var(--tinta); font-size: 46px; font-weight: 800; line-height: 1.15; margin: 0 0 18px; }
 strong, section h1 strong, section h2 strong { color: var(--destaque); font-weight: inherit; }
-section p strong, section li strong, section td strong, .nota strong { font-weight: 700; }
+section p strong, section li strong, section td strong, .nota strong, .apoio strong { font-weight: 700; }
 p { margin: 0 0 14px; }
 /* rótulo da parte da apresentação, acima do título */
 .rotulo {
@@ -97,6 +97,7 @@ section.escuro h1 { color: #fff; font-size: 80px; font-weight: 900; line-height:
 section.escuro strong, section.escuro h1 strong { color: #F08A73; }
 section.escuro .rotulo { color: #F08A73; }
 section.escuro .legenda { color: #B9BDCB; font-size: 24px; margin-top: 50px; }
+section.escuro .legenda strong { font-weight: 800; font-size: 34px; }
 section.escuro footer, section.escuro::after { color: #6F7390; }
 ol { margin: 0; padding-left: 1.2em; }
 ol li { margin: 8px 0; }
@@ -290,7 +291,7 @@ Faixa alta: **81%** cancelaram. Faixa baixa: **19%**. Testado em 2017, um ano qu
   </div>
   <div class="cartao" style="border-top:8px solid #E3A08F">
     <div class="numero" style="font-size:54px;color:#B5705F">Média</div>
-    <div class="texto">Lembrete simpático <b>por e-mail</b></div>
+    <div class="texto">Lembrete <b>por e-mail</b></div>
   </div>
   <div class="cartao" style="border-top:8px solid var(--cinza-claro)">
     <div class="numero neutro" style="font-size:54px">Baixa</div>
@@ -299,7 +300,7 @@ Faixa alta: **81%** cancelaram. Faixa baixa: **19%**. Testado em 2017, um ano qu
 </div>
 
 <div class="apoio" style="font-size:30px">
-Piloto de **3 meses** no hotel de cidade, que tem **42%** de cancelamento.</div>
+Piloto de <strong>3 meses</strong> no hotel de cidade, que tem <strong>42%</strong> de cancelamento.</div>
 
 ---
 
