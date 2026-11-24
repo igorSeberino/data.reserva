@@ -16,7 +16,7 @@ section {
 }
 h1 { color: #2B2D42; font-size: 50px; line-height: 1.15; margin-bottom: 20px; }
 h2 { color: #2B2D42; font-size: 44px; line-height: 1.2; margin-bottom: 18px; }
-strong { color: #C8553D; }
+strong, h1 strong, h2 strong { color: #C8553D; }
 .grande { font-size: 150px; font-weight: 800; color: #C8553D; line-height: 1; margin: 10px 0; }
 .medio { font-size: 80px; font-weight: 800; color: #C8553D; line-height: 1.1; margin: 10px 0; }
 .legenda { font-size: 28px; color: #6B6F82; }
@@ -84,8 +84,6 @@ Só 182 eram impossíveis. O resto ficou.
 ![h:330](../reports/figures/02_deposito.png)
 
 **99%** das reservas "não reembolsáveis" cancelam. Isso contraria o esperado.
-
----
 
 ---
 
