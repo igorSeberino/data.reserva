@@ -1,15 +1,14 @@
-# 6. Implantação: como o hotel usa o radar de risco no dia a dia
+# 6. Implantação: como o radar de risco funciona no dia a dia
 
 > **Em uma frase:** toda manhã, cada reserva nova recebe uma nota de risco (baixo, médio ou
-> alto), e a equipe de reservas age primeiro nas de **alto risco**, antes que o quarto fique
-> vazio.
+> alto), e é gerada a lista das reservas de **alto risco** com chegada nos próximos 30 dias.
 
 Este documento é para a **gerência dos hotéis**. Todos os números vêm de
 [`reports/tables/`](../reports/tables/) e dos notebooks
 [`01`](../notebooks/01_etl_preparacao_dos_dados.ipynb) e
 [`03`](../notebooks/03_modelo_preditivo.ipynb). Nada foi estimado fora deles.
 
-## Por que vale a pena
+## O que o radar entrega
 
 - **Quase 4 em cada 10 reservas são canceladas** (37%), o que somou **€ 16,7 milhões** de
   receita estimada que não se concretizou em pouco mais de dois anos
@@ -24,31 +23,27 @@ Este documento é para a **gerência dos hotéis**. Todos os números vêm de
 | Na faixa alta, pelo menos 7 em cada 10 cancelam | 70% ou mais | **81%** |
 
 - A faixa **alta** tem **23%** das reservas, mas concentra **48%** de todos os cancelamentos
-  ([`03_faixas_de_risco.csv`](../reports/tables/03_faixas_de_risco.csv)). Ou seja, é
-  possível focar o esforço num grupo pequeno que concentra quase metade do problema.
+  ([`03_faixas_de_risco.csv`](../reports/tables/03_faixas_de_risco.csv)): um grupo pequeno
+  que concentra quase metade dos cancelamentos.
 
-## Como o hotel usaria no dia a dia
+## Como funciona no dia a dia
 
 1. **Toda manhã**, o sistema dá uma nota de risco às reservas novas e atualiza as antigas.
-2. A equipe de reservas recebe a **lista de alto risco das chegadas dos próximos 30 dias**,
-   ordenada pela receita em jogo (veja o exemplo abaixo).
-3. Cada reserva da lista recebe a ação da faixa dela (tabela a seguir).
-4. O resultado do contato (confirmou, alterou a data, cancelou, não respondeu) é anotado, para
-   medir se está funcionando.
+2. É gerada a **lista de alto risco das chegadas dos próximos 30 dias**, ordenada pela
+   receita em jogo (veja o exemplo abaixo).
 
-## O que fazer em cada faixa
+## As faixas de risco
 
-| Faixa | Chance de cancelar | Em 2017, cancelaram de fato | O que fazer |
-|---|---|---|---|
-| **Alto** | 60% ou mais | **81%** | Contato de confirmação **7 a 14 dias antes** da chegada. Oferecer **alteração de data** em vez de cancelamento. Se não houver resposta, considerar **revenda controlada** do quarto. |
-| **Médio** | de 30% a 60% | **52%** | **Lembrete automático por e-mail** com os serviços do hotel (restaurante, spa, passeios), para reforçar o compromisso. |
-| **Baixo** | menos de 30% | **19%** | Nada muda. |
+| Faixa | Chance de cancelar | Em 2017, cancelaram de fato |
+|---|---|---|
+| **Alto** | 60% ou mais | **81%** |
+| **Médio** | de 30% a 60% | **52%** |
+| **Baixo** | menos de 30% | **19%** |
 
 Fonte: [`03_faixas_de_risco.csv`](../reports/tables/03_faixas_de_risco.csv).
 
-> **Importante:** nenhuma reserva é cancelada só porque o radar deu risco alto. A ação é um
-> contato cordial. Mesmo na faixa alta, 19% dos hóspedes vieram (1.761 reservas em 2017), e
-> esses não podem ser tratados como suspeitos.
+> **Alarmes falsos:** mesmo na faixa alta, 19% dos hóspedes vieram (1.761 reservas em 2017).
+> A nota de risco é uma chance, não uma certeza.
 
 ## Exemplo de lista diária
 
@@ -74,43 +69,14 @@ gerado por [`src/exemplo_lista_diaria.py`](../src/exemplo_lista_diaria.py) a par
 Na vida real, a coluna "cancelou de fato" não existe (só se sabe depois). Por isso ela foi
 deixada de fora da lista.
 
-## Piloto: 3 meses no Hotel de cidade
-
-Em vez de mudar os dois hotéis de uma vez, o plano é um **piloto de 3 meses no Hotel de
-cidade**, que tem a **maior taxa de cancelamento (42%, contra 28% do resort)**
-([`01_resumo_do_problema.csv`](../reports/tables/01_resumo_do_problema.csv)). É onde há mais
-a ganhar e onde o efeito aparece mais rápido.
-
-- O **resort** segue como está e serve de **comparação**.
-- Dentro do Hotel de cidade, se possível, **uma parte das reservas de alto risco não recebe
-  contato** (grupo de comparação). Só assim dá para saber quanto do ganho vem de fato da ação.
-
-## Quanto pode valer
-
-A simulação do Renato mostra o que aconteceria se o hotel recuperasse só uma parte da receita
-das reservas de alto risco que cancelam (€ 3,34 milhões entre janeiro e agosto de 2017). É uma
-**estimativa com premissas**, não uma promessa
-([`03_simulacao_impacto.csv`](../reports/tables/03_simulacao_impacto.csv)):
-
-| Se o hotel recuperar... | Receita recuperada em 8 meses | Por mês |
-|---|---|---|
-| 10% (pessimista) | € 0,33 milhão | ≈ € 42 mil |
-| 20% (moderado) | € 0,67 milhão | ≈ € 84 mil |
-| 30% (otimista) | € 1,00 milhão | ≈ € 125 mil |
-
-O piloto serve justamente para descobrir qual dessas faixas é a realista.
-
 ## Como saber se está funcionando
 
 Acompanhar **todo mês**:
 
 1. **Taxa real de cancelamento por faixa** (alto, médio, baixo). Se a faixa alta deixar de
    cancelar 8 em cada 10, ou se as faixas pararem de se separar, o radar perdeu a qualidade.
-2. **Receita recuperada:** quartos que seriam perdidos e foram mantidos (data alterada) ou
-   revendidos.
-3. **Reclamações de hóspedes contatados.** Se aumentarem, o contato está incomodando e o texto
-   ou o momento precisa mudar.
-4. **Comparação com o grupo sem contato**, no piloto.
+2. **Nota F1 do mês**, comparada com a regra do gerente, para confirmar que o radar continua
+   avisando melhor do que ela.
 
 ## Manutenção
 
@@ -124,9 +90,8 @@ Acompanhar **todo mês**:
 | Risco | O que fazer |
 |---|---|
 | **Privacidade.** Os dados são de hóspedes na Europa, protegidos pelo **RGPD** (a lei europeia de proteção de dados). | Usar só os dados necessários, limitar quem acessa a lista e não guardar a nota de risco no cadastro permanente do hóspede. |
-| **Tratar o hóspede como "suspeito".** | O contato é um serviço ("confirmando a sua estadia"), nunca uma cobrança. Nenhuma reserva é cancelada pelo radar. |
 | **Dados antigos.** O radar aprendeu com 2015 a 2017, antes da pandemia. | Retreinar com dados recentes **antes** de usar de verdade. |
-| **Alarme falso.** Na faixa alta, 19% dos hóspedes vieram. | Contato cordial e de baixo custo; nunca penalizar o hóspede. |
+| **Alarme falso.** Na faixa alta, 19% dos hóspedes vieram. | Tratar a nota como chance, não como certeza; acompanhar a taxa real por faixa. |
 | **Reservas "não reembolsáveis".** Elas cancelam 99% das vezes, um padrão estranho (possível reserva de grupo liberada depois ou erro de registro). | Investigar com a equipe antes de confiar nesse sinal ([`03_fatores_de_risco.csv`](../reports/tables/03_fatores_de_risco.csv)). |
 | **Nota cai fora do treino.** F1 de 0,79 nos simulados do treino contra 0,67 em 2017. | Acompanhar a nota real mês a mês; a que vale é a de 2017. |
 | **Só dois hotéis, sem dados de fora** (preço da concorrência, eventos, clima). | Não generalizar para outros hotéis sem testar. |
@@ -134,9 +99,7 @@ Acompanhar **todo mês**:
 
 ## Próximos passos
 
-1. **Validar o plano** com a gerência e a equipe de reservas (quem recebe a lista e como).
-2. **Reprocessar o radar** com reservas mais recentes e confirmar que continua passando nos
+1. **Reprocessar o radar** com reservas mais recentes e confirmar que continua passando nos
    dois critérios de sucesso.
-3. **Investigar as reservas "não reembolsáveis"** com a equipe do hotel.
-4. **Rodar o piloto de 3 meses** no Hotel de cidade, com grupo de comparação.
-5. **Decidir** com os números do piloto se amplia para o resort.
+2. **Esclarecer as reservas "não reembolsáveis"** com a equipe do hotel (possível erro de
+   registro).

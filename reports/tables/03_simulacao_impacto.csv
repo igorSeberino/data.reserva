@@ -1,4 +1,0 @@
-cenario,premissa_recuperacao,reservas_alto_risco,receita_alto_risco_cancelada,receita_recuperada,receita_recuperada_por_mes,pct_da_receita_cancelada_total,periodo
-Pessimista,0.1,9372,3341917.72,334191.77,41773.97,0.0463,jan–ago/2017 (8 meses)
-Moderado,0.2,9372,3341917.72,668383.54,83547.94,0.0925,jan–ago/2017 (8 meses)
-Otimista,0.3,9372,3341917.72,1002575.32,125321.92,0.1388,jan–ago/2017 (8 meses)

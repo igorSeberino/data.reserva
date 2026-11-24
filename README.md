@@ -2,7 +2,7 @@
 
 > **Em uma frase:** quase 4 em cada 10 reservas dos dois hotéis estudados são canceladas.
 > Este projeto usa o histórico de reservas para entender **por que** isso acontece, **prever**
-> quais reservas têm mais chance de cancelar e **recomendar** o que a gerência pode fazer a respeito.
+> quais reservas têm mais chance de cancelar.
 
 <!-- SEÇÃO: RESUMO EXECUTIVO — Gabriel (#5) -->
 **O problema:** quase 4 em cada 10 reservas (37%) dos dois hotéis são canceladas, o que deixou
@@ -11,8 +11,7 @@
 reembolsáveis"; cancelam menos os hóspedes que fazem pedidos especiais.
 **O que o radar de risco faz:** dá a cada reserva uma nota (baixo, médio ou alto). Em 2017, na faixa
 alta, **81%** cancelaram; ela tem 23% das reservas e 48% dos cancelamentos.
-**Quanto pode valer:** cerca de **€ 0,67 milhão** em 8 meses, se o hotel recuperar 20% (estimativa).
-**O que recomendamos:** um piloto de **3 meses** no Hotel de cidade, agindo sobre a faixa alta.
+**O radar é bom o bastante?** Sim: atingiu os dois critérios de sucesso definidos antes de modelar.
 <!-- FIM: RESUMO EXECUTIVO -->
 
 ---
@@ -25,8 +24,7 @@ exemplos concretos e números em contexto ("4 em cada 10 reservas"), não jargã
 
 ## A pergunta de negócio
 
-**"Quais reservas têm alta chance de serem canceladas e o que podemos fazer, antes da chegada
-do hóspede, para não perder a receita desses quartos?"**
+**"Quais reservas têm alta chance de serem canceladas, antes da chegada do hóspede?"**
 
 ## Como o trabalho foi organizado (CRISP-DM)
 
@@ -61,8 +59,7 @@ de 2017):
 | Receita estimada das canceladas | € 10,9 milhões | € 5,8 milhões | **€ 16,7 milhões** |
 
 Os € 16,7 milhões são **39%** de toda a receita reservada (diária × noites). O objetivo é
-dar a cada reserva uma **nota de risco** (baixo, médio ou alto) para o hotel agir antes da
-chegada. Problema, objetivos, critério de sucesso e riscos em
+dar a cada reserva uma **nota de risco** (baixo, médio ou alto) antes da chegada do hóspede. Problema, objetivos, critério de sucesso e riscos em
 [`docs/01_entendimento_do_negocio.md`](docs/01_entendimento_do_negocio.md).
 Números de [`reports/tables/01_resumo_do_problema.csv`](reports/tables/01_resumo_do_problema.csv).
 
@@ -156,7 +153,7 @@ cancelamentos**.
   de fato (regra do gerente: 5).
 - **Cobertura (recall):** de cada 10 cancelamentos que aconteceram, o modelo **avisou 6 antes**
   (regra do gerente: 7). Ele avisa um pouco menos, mas erra muito menos; baixando o limiar, o
-  hotel pega mais cancelamentos em troca de mais alarmes falsos.
+  modelo pega mais cancelamentos em troca de mais alarmes falsos.
 - **Nota F1:** **0,67**, contra **0,58** da regra do gerente.
 - **AUC:** **0,84**, ou seja, em 84% das vezes o modelo dá risco maior a uma reserva que cancela
   do que a uma que não cancela.
@@ -174,49 +171,37 @@ das feitas na mesma semana) e o segmento de mercado.
 | Acerta mais do que a regra do gerente (nota F1 em 2017) | > 0,58 | 0,67 | **Sim** |
 | Na faixa alta, pelo menos 7 de cada 10 cancelam | ≥ 70% | 81,2% | **Sim** |
 
-**Quanto isso pode salvar (simulação com premissas).** Ação proposta para a faixa alta:
-contato de confirmação antes da chegada e, sem resposta, liberar o quarto para revenda. As
-reservas de alto risco que cancelaram em 2017 somavam **€ 3,34 mi** (46% de toda a receita
-cancelada no período). *Premissa:* o hotel recupera só uma parte disso:
-
-| Cenário (premissa) | Receita recuperada em jan–ago/2017 | Por mês |
-|---|---|---|
-| Pessimista (10%) | € 0,33 mi | ≈ € 42 mil |
-| Moderado (20%) | € 0,67 mi | ≈ € 84 mil |
-| Otimista (30%) | € 1,00 mi | ≈ € 125 mil |
-
-Na faixa alta, **1.761 reservas (19%)** eram alarme falso: o hóspede veio. Como a ação é só um
-contato cordial, o custo é baixo, mas **nenhuma reserva é cancelada só porque o modelo deu
-risco alto**.
+**Alarmes falsos:** na faixa alta, **1.761 reservas (19%)** não cancelaram: o hóspede veio. A
+nota de risco é uma chance, não uma certeza.
 
 **Limitações:** dados de 2015 a 2017 (o modelo precisa ser treinado de novo com dados
 recentes), só dois hotéis em Portugal, sem informação de fora (preço da concorrência, eventos,
-clima) e a simulação de dinheiro é uma estimativa. A nota caiu dos simulados (F1 0,79) para
+clima). A nota caiu dos simulados (F1 0,79) para
 2017 (F1 0,67), o que é esperado num ano novo; a nota que vale é a de 2017.
 
-**Veredito: pronto para um piloto controlado**, começando por um hotel, com dados recentes e
-comparando com um grupo sem contato para medir o ganho real. Detalhes no
+**Veredito: o modelo atinge os dois critérios de sucesso.** Antes de ser usado, precisa ser
+treinado de novo com dados recentes, e o padrão das reservas "não reembolsáveis" ainda precisa ser
+esclarecido. Detalhes no
 [`notebook 03`](notebooks/03_modelo_preditivo.ipynb).
 <!-- FIM: RENATO -->
 
-<!-- SEÇÃO: 6 IMPLANTAÇÃO E RECOMENDAÇÕES — Gabriel (#5) -->
-## 6. O que o hotel deve fazer
+<!-- SEÇÃO: 6 IMPLANTAÇÃO — Gabriel (#5) -->
+## 6. Como o radar funciona no dia a dia
 
-**Toda manhã**, as reservas novas recebem uma nota de risco, e a equipe de reservas recebe a lista de
-**alto risco** das chegadas dos próximos 30 dias. A ação depende da faixa:
+**Toda manhã**, as reservas novas recebem uma nota de risco e é gerada a lista de **alto risco**
+das chegadas dos próximos 30 dias. Em 2017, cancelaram de fato:
 
-| Faixa | O que fazer |
-|---|---|
-| **Alto** (81% cancelaram em 2017) | Contato de confirmação 7 a 14 dias antes, oferecer troca de data em vez de cancelamento e, sem resposta, considerar revenda controlada do quarto |
-| **Médio** (52%) | Lembrete automático por e-mail com os serviços do hotel |
-| **Baixo** (19%) | Nada muda |
+| Faixa | Chance de cancelar | Cancelaram em 2017 |
+|---|---|---|
+| **Alto** | 60% ou mais | 81% |
+| **Médio** | de 30% a 60% | 52% |
+| **Baixo** | menos de 30% | 19% |
 
-**Piloto:** 3 meses no **Hotel de cidade** (a maior taxa de cancelamento: 42%, contra 28% do
-resort), com o resort como comparação. **Acompanhamento mensal:** taxa real de cancelamento por
-faixa, receita recuperada e reclamações de hóspedes contatados. O radar deve ser treinado de novo
-a cada 3 meses. Cuidados: privacidade (RGPD) e nunca tratar o hóspede como suspeito.
+**Acompanhamento mensal:** taxa real de cancelamento por faixa, para saber se o radar continua
+separando bem as reservas. O radar deve ser treinado de novo a cada 3 meses. Cuidado com a
+privacidade (RGPD).
 
-- Plano completo: [`docs/06_implantacao.md`](docs/06_implantacao.md)
+- Detalhes: [`docs/06_implantacao.md`](docs/06_implantacao.md)
 - Slides: [`apresentacao/apresentacao.pdf`](apresentacao/apresentacao.pdf) · fonte em [`apresentacao/slides.md`](apresentacao/slides.md)
 - Roteiro de fala: [`apresentacao/roteiro.md`](apresentacao/roteiro.md)
 - Exemplo de lista diária: [`reports/tables/06_exemplo_lista_diaria.csv`](reports/tables/06_exemplo_lista_diaria.csv)
