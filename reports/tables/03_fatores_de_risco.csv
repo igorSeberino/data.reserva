@@ -1,0 +1,9 @@
+posicao,fator,nome,piora_media_auc,variacao,explicacao
+1,tipo_deposito,Tipo de depósito,0.109,0.0024,"Reservas 'não reembolsáveis' cancelam 99% das vezes (contra 27% sem depósito). É um padrão estranho, para o hotel investigar."
+2,pedidos_especiais,Pedidos especiais,0.0532,0.0012,"Quem faz pedidos especiais está comprometido com a viagem: 19% cancelam, contra 47% de quem não faz nenhum pedido."
+3,antecedencia_dias,Antecedência da reserva,0.0481,0.0031,"Quanto mais cedo a reserva é feita, mais ela cancela: 60% das feitas com mais de 6 meses cancelam, contra 10% das feitas na mesma semana."
+4,segmento_mercado,Segmento de mercado,0.0426,0.0012,"O canal de origem importa: reservas de agência online cancelam 34%, de grupos 62% e diretas 15%."
+5,tipo_cliente,Tipo de cliente,0.031,0.0019,"O tipo de reserva pesa: avulsas cancelam 39%, avulsas ligadas a outra reserva 28%."
+6,vagas_estacionamento,Vaga de garagem,0.0258,0.0019,"Quem pede vaga de garagem praticamente sempre vem: 0% cancelam, contra 39% de quem não pede."
+7,diaria_media,Valor da diária,0.0103,0.0007,"Sozinho, o valor da diária não separa quem cancela; combinado com hotel, época e canal, ajuda o modelo a reconhecer perfis de reserva."
+8,hotel,Hotel,0.0083,0.0008,O hotel de cidade cancela mais (41%) que o resort (26%).
