@@ -46,7 +46,7 @@ O planejamento completo está na issue #1.
 
 ---
 
-<!-- SEÇÃO: 1 ENTENDIMENTO DO NEGÓCIO + 3 PREPARAÇÃO — Igor (#2) -->
+<!-- SEÇÃO: 1 ENTENDIMENTO DO NEGÓCIO — Igor (#2) -->
 ## 1. O problema do hotel
 
 Os dois hotéis recebem muitas reservas, mas uma parte grande delas não vira hóspede. Cada
@@ -66,30 +66,6 @@ chegada. Problema, objetivos, critério de sucesso e riscos em
 [`docs/01_entendimento_do_negocio.md`](docs/01_entendimento_do_negocio.md).
 Números de [`reports/tables/01_resumo_do_problema.csv`](reports/tables/01_resumo_do_problema.csv).
 
-## 3. Preparação dos dados
-
-Antes de analisar, organizamos a bagunça (o chamado ETL: extrair, transformar e carregar).
-O que fizemos e por quê:
-
-- **Removemos só o impossível:** 180 reservas com zero hóspedes, 1 com diária negativa e 1
-  com diária de € 5.400. São **182** de 119.390 (0,15%).
-- **Mantivemos as linhas repetidas** (31.994): sem número de reserva, não dá para provar que
-  são erro; em geral são grupos que reservaram vários quartos iguais.
-- **Preenchemos os espaços em branco:** crianças em branco viraram 0; país em branco virou
-  "Desconhecido"; agência e empresa viraram "tem ou não tem".
-- **Tiramos as colunas que "entregam a resposta"**, como a situação final da reserva: elas
-  só existem depois do cancelamento e fariam a previsão parecer perfeita sem ser.
-- **Traduzimos tudo** para o português e criamos colunas novas: total de noites, total de
-  hóspedes e receita estimada.
-- **Separamos o passado do futuro:** o modelo aprende com as chegadas até 2016 (78.589
-  reservas, o "treino") e é conferido nas de 2017 (40.619, o "teste"), que ele nunca viu.
-
-![Só 182 de 119.390 reservas eram impossíveis](reports/figures/01_funil_da_limpeza.png)
-
-Quase nada foi descartado: a base final tem **119.208 reservas** e é confiável para as
-próximas etapas. O significado de cada coluna está no
-[dicionário de dados](docs/dicionario_de_dados.md), e o passo a passo, no
-[notebook 01](notebooks/01_etl_preparacao_dos_dados.ipynb).
 <!-- FIM: IGOR -->
 
 <!-- SEÇÃO: 2 ENTENDIMENTO DOS DADOS — Adrian (#3) -->
@@ -117,6 +93,33 @@ O resultado é contraintuitivo e precisa ser verificado com os hotéis antes de 
 
 91,7% das reservas de hóspedes com cancelamentos anteriores também foram canceladas; isso é uma associação no histórico, não uma explicação do motivo.
 <!-- FIM: ADRIAN -->
+
+<!-- SEÇÃO: 3 PREPARAÇÃO — Igor (#2) -->
+## 3. Preparação dos dados
+
+Antes de analisar, organizamos a bagunça (o chamado ETL: extrair, transformar e carregar).
+O que fizemos e por quê:
+
+- **Removemos só o impossível:** 180 reservas com zero hóspedes, 1 com diária negativa e 1
+  com diária de € 5.400. São **182** de 119.390 (0,15%).
+- **Mantivemos as linhas repetidas** (31.994): sem número de reserva, não dá para provar que
+  são erro; em geral são grupos que reservaram vários quartos iguais.
+- **Preenchemos os espaços em branco:** crianças em branco viraram 0; país em branco virou
+  "Desconhecido"; agência e empresa viraram "tem ou não tem".
+- **Tiramos as colunas que "entregam a resposta"**, como a situação final da reserva: elas
+  só existem depois do cancelamento e fariam a previsão parecer perfeita sem ser.
+- **Traduzimos tudo** para o português e criamos colunas novas: total de noites, total de
+  hóspedes e receita estimada.
+- **Separamos o passado do futuro:** o modelo aprende com as chegadas até 2016 (78.589
+  reservas, o "treino") e é conferido nas de 2017 (40.619, o "teste"), que ele nunca viu.
+
+![Só 182 de 119.390 reservas eram impossíveis](reports/figures/01_funil_da_limpeza.png)
+
+Quase nada foi descartado: a base final tem **119.208 reservas** e é confiável para as
+próximas etapas. O significado de cada coluna está no
+[dicionário de dados](docs/dicionario_de_dados.md), e o passo a passo, no
+[notebook 01](notebooks/01_etl_preparacao_dos_dados.ipynb).
+<!-- FIM: IGOR -->
 
 <!-- SEÇÃO: 4 MODELAGEM + 5 AVALIAÇÃO — Renato (#4) -->
 ## 4. Prevendo cancelamentos
