@@ -50,14 +50,13 @@ de 2017.
 
 ## A pergunta de negócio
 
-> **"Quais reservas têm alta chance de serem canceladas e o que podemos fazer, antes da
-> chegada do hóspede, para não perder a receita desses quartos?"**
+> **"Quais reservas têm alta chance de serem canceladas, antes da chegada do hóspede?"**
 
 ## Objetivos
 
 - **Objetivo de negócio:** reduzir a receita perdida com cancelamentos.
 - **Objetivo do projeto de dados:** estimar, para cada reserva, a **chance de
-  cancelamento** e colocá-la numa faixa de risco que a equipe entende e usa para agir:
+  cancelamento** e colocá-la numa faixa de risco fácil de entender:
 
 | Faixa de risco | Chance de cancelar |
 |---|---|
@@ -74,8 +73,7 @@ considerado útil se, nas reservas de **2017** (que ele nunca viu durante o apre
    cancelar se foi feita com mais de 90 dias de antecedência ou com depósito não
    reembolsável". Se o modelo não superar essa regra, não vale a pena usá-lo; **e**
 2. na faixa de **alto risco**, **pelo menos 7 de cada 10 reservas** realmente cancelarem.
-   Assim, quando o hotel agir sobre uma reserva de alto risco, na maioria das vezes estará
-   agindo sobre um cancelamento de verdade.
+   Assim, a maioria das reservas marcadas como alto risco é, de fato, um cancelamento.
 
 Se o modelo não atingir esses dois pontos, isso será dito com transparência.
 

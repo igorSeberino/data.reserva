@@ -261,46 +261,29 @@ Faixa alta: **81%** cancelaram. Faixa baixa: **19%**. Testado em 2017, um ano qu
 
 ---
 
-<span class="rotulo">A decisão</span>
+<span class="rotulo">Em resumo</span>
 
-## Quanto isso vale? **Até € 0,67 mi em 8 meses**
-
-<div class="cartoes dois">
-  <div class="cartao">
-    <div class="numero">€ 0,67 mi</div>
-    <div class="texto">com todas as reservas da faixa alta</div>
-  </div>
-  <div class="cartao">
-    <div class="numero neutro">€ 0,43 mi</div>
-    <div class="texto">sem as "não reembolsáveis" (o depósito pode já ter ficado com o hotel)</div>
-  </div>
-</div>
-
-<div class="nota">Premissa: o contato recupera 20% da receita das reservas da faixa alta que cancelariam. É estimativa, não promessa: o piloto vai medir o valor real.</div>
-
----
-
-<span class="rotulo">A decisão</span>
-
-## **A partir de amanhã:** agir conforme a faixa
+## Dá para saber **antes** quem vai cancelar
 
 <div class="cartoes tres">
-  <div class="cartao" style="border-top:8px solid var(--destaque)">
-    <div class="numero" style="font-size:54px">Alta</div>
-    <div class="texto">Contato de confirmação <b>7 a 14 dias antes</b>, oferecendo outra data em vez do cancelamento</div>
+  <div class="cartao">
+    <div class="numero">37%</div>
+    <div class="texto">das reservas são canceladas</div>
+    <div class="contra">€ 16,7 mi em diárias reservadas</div>
   </div>
-  <div class="cartao" style="border-top:8px solid #E3A08F">
-    <div class="numero" style="font-size:54px;color:#B5705F">Média</div>
-    <div class="texto">Lembrete <b>por e-mail</b></div>
+  <div class="cartao">
+    <div class="numero">81%</div>
+    <div class="texto">cancelam na <b>faixa alta</b> do radar</div>
+    <div class="contra">23% das reservas, 48% dos cancelamentos</div>
   </div>
-  <div class="cartao" style="border-top:8px solid var(--cinza-claro)">
-    <div class="numero neutro" style="font-size:54px">Baixa</div>
-    <div class="texto">Nada muda</div>
+  <div class="cartao">
+    <div class="numero neutro">0,67</div>
+    <div class="texto">nota F1 do radar em 2017</div>
+    <div class="contra">contra 0,58 da regra do gerente</div>
   </div>
 </div>
 
-<div class="apoio" style="font-size:30px">
-Piloto de <strong>3 meses</strong> no hotel de cidade, que tem <strong>42%</strong> de cancelamento.</div>
+<div class="nota">Testado em 2017, um ano que o radar nunca viu. Os dois critérios de sucesso foram definidos antes de modelar.</div>
 
 ---
 
@@ -309,14 +292,12 @@ Piloto de <strong>3 meses</strong> no hotel de cidade, que tem <strong>42%</stro
 
 <span class="rotulo">Próximos passos</span>
 
-# Começar pelo **piloto**
+# Manter o **radar** confiável
 
 <ol style="font-size:32px; line-height:1.5">
-  <li>Investigar as reservas "não reembolsáveis" com a equipe de reservas</li>
-  <li>Validar o plano de contato com a equipe</li>
-  <li>Atualizar o radar com dados recentes</li>
-  <li>Rodar o piloto de 3 meses e comparar com o resort</li>
-  <li>Decidir se amplia para o resort</li>
+  <li>Esclarecer as reservas "não reembolsáveis" com a equipe do hotel</li>
+  <li>Treinar o radar de novo com dados recentes</li>
+  <li>Acompanhar todo mês a taxa real de cancelamento por faixa</li>
 </ol>
 
 <div class="legenda"><strong>Obrigado!</strong></div>

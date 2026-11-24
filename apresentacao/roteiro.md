@@ -1,19 +1,19 @@
-# Roteiro de fala (alvo: 8 minutos)
+# Roteiro de fala (alvo: até 8 minutos)
 
 Slides em [`slides.md`](slides.md), PDF em `apresentacao.pdf`. Linguagem de gerente: "radar de
 risco" = modelo; "acerto dos alertas" = precisão; "cancelamentos encontrados" = recall.
-Todos os números vêm de [`reports/tables/`](../reports/tables/) (conforme a regra D8 da issue #1). Slides 5 a 7: tabelas `02_*`; slides 8 a 12: tabelas `03_*`. Os números das notas de rodapé
-(linhas repetidas, teste sem as reservas "não reembolsáveis" e o valor de € 0,43 mi) vêm das tabelas
+Todos os números vêm de [`reports/tables/`](../reports/tables/) (conforme a regra D8 da issue #1). Slides 5 a 7: tabelas `02_*`; slides 8 a 11: tabelas `03_*`; o slide 12 repete números já mostrados. Os números das notas de rodapé
+(linhas repetidas e teste sem as reservas "não reembolsáveis") vêm das tabelas
 `04_*`, geradas pelo notebook [`04_revisao_dos_resultados.ipynb`](../notebooks/04_revisao_dos_resultados.ipynb).
 
-**Resumo de tempo:** Gabriel 1:30 + Igor 0:45 + Adrian 1:55 + Renato 2:10 + Gabriel 1:40 = **8:00**.
+**Resumo de tempo:** Gabriel 1:30 + Igor 0:45 + Adrian 1:55 + Renato 2:10 + Gabriel 1:10 = **7:30**.
 
 ## Parte 1: o problema (Gabriel, 1:30)
 
 ### Slide 1: Capa (0:15) · Gabriel
 **Fala:** "Bom dia, professor. Somos o grupo do projeto *Quem vai cancelar a reserva?*. Vamos
-mostrar como transformar dados de dois hotéis em Portugal em uma decisão que a gerência pode
-tomar amanhã."
+mostrar como os dados de dois hotéis em Portugal permitem saber, antes da chegada, quais reservas
+têm mais chance de cancelar."
 **Transição:** "Para começar, o tamanho do problema."
 
 ### Slide 2: Quase 4 em cada 10 reservas são canceladas (0:40) · Gabriel
@@ -90,28 +90,21 @@ gerente**: 0,54 contra 0,46. Até um radar que nunca viu o depósito chega ao me
 Ou seja, ele aprendeu padrões reais. O que muda é a faixa alta: sem essas reservas, cancelam
 2 em cada 3, perto da meta de 7 em 10, mas abaixo dela. Por isso a investigação do depósito
 é o primeiro passo."
-**Transição:** "E quanto isso vale? O Gabriel fecha."
+**Transição:** "Para fechar, o Gabriel resume."
 
-## Parte 5: a decisão (Gabriel, 1:40)
+## Parte 5: conclusão (Gabriel, 1:10)
 
-### Slide 12: Quanto isso vale? (0:30) · Gabriel
-**Fala:** "Se o contato recuperar 20% da receita das reservas da faixa alta que cancelariam, são
-cerca de **€ 0,67 milhão** em oito meses. Sem as 'não reembolsáveis', cujo depósito pode já ter
-ficado com o hotel, são **€ 0,43 milhão**. É uma estimativa com premissa, não promessa: o piloto
-vai medir o valor real."
-**Transição:** "Então, o que fazer na segunda-feira?"
-
-### Slide 13: A partir de amanhã (0:40) · Gabriel
-**Fala:** "Toda manhã, a equipe recebe a lista de alto risco dos próximos 30 dias. Na faixa alta,
-contato de 7 a 14 dias antes, oferecendo outra data em vez do cancelamento. Na média, um
-lembrete por e-mail. Na baixa, nada muda. Propomos começar por um piloto de **3 meses** no hotel de
-cidade, que tem a maior taxa de cancelamento, e comparar com o resort."
+### Slide 12: Em resumo (0:40) · Gabriel
+**Fala:** "Resumindo: **37%** das reservas são canceladas, € 16,7 milhões em diárias reservadas.
+O radar separa bem as reservas: na faixa alta, **81%** cancelaram, e essa faixa tem 23% das
+reservas, mas quase metade dos cancelamentos. E ele avisa melhor que a regra do gerente: nota
+**0,67** contra 0,58, testado em 2017, um ano que ele nunca viu."
 **Transição:** "Para fechar, os próximos passos."
 
-### Slide 14: Próximos passos (0:30) · Gabriel
-**Fala:** "Primeiro, investigar com a equipe de reservas as reservas não reembolsáveis. Depois,
-validar o plano, atualizar o radar com dados recentes, rodar o piloto e decidir se amplia.
-Cuidamos também de privacidade (RGPD) e de nunca tratar o hóspede como suspeito. Obrigado!"
+### Slide 13: Próximos passos (0:30) · Gabriel
+**Fala:** "Primeiro, esclarecer com a equipe do hotel as reservas não reembolsáveis. Depois,
+treinar o radar de novo com dados recentes e acompanhar todo mês a taxa real de cancelamento por
+faixa. Cuidamos também da privacidade (RGPD). Obrigado!"
 
 ## Seis perguntas prováveis do professor
 
@@ -121,8 +114,9 @@ tardio (o país pode ser corrigido só no check-in), o que seria "colar na prova
 país ficou fora (decisão D5 do planejamento).
 
 **2. O que acontece com os alarmes falsos?**
-Na faixa alta, 19% (1.761 reservas em 2017) eram alarme falso: o hóspede veio. Como a ação é só um
-contato cordial, o custo é baixo, e nenhuma reserva é cancelada porque o radar deu risco alto.
+Na faixa alta, 19% (1.761 reservas em 2017) eram alarme falso: o hóspede veio. A nota de risco é
+uma chance, não uma certeza. Baixando o limiar, o radar pega mais cancelamentos, em troca de mais
+alarmes falsos; subindo, o contrário.
 
 **3. Por que separar treino e teste por data?**
 Imita a vida real: o hotel aprende com o passado e usa no futuro. O radar aprende com 2015–2016 e
@@ -132,13 +126,13 @@ inflem a nota.
 **4. Quais as limitações?**
 Sem número de reserva, não dá para separar grupos reais de linhas repetidas por erro (por isso
 mostramos os dois cenários). Dados de 2015 a 2017 (antes da pandemia), só dois hotéis em Portugal, sem dados externos (preço da
-concorrência, eventos, clima), e a simulação de dinheiro é uma estimativa. A nota também caiu
+concorrência, eventos, clima). A nota também caiu
 dos simulados do treino (0,79) para 2017 (0,67); a que vale é a de 2017.
 
 **5. Como isso seria usado de verdade?**
-Toda manhã as reservas novas recebem uma nota, e a equipe age na lista de alto risco dos próximos
-30 dias. Começa-se por um piloto de 3 meses no hotel de cidade, com grupo de comparação,
-retreinando o radar a cada 3 meses. Detalhes em
+Toda manhã as reservas novas recebem uma nota, e é gerada a lista de alto risco dos próximos
+30 dias. O radar é treinado de novo a cada 3 meses, e a taxa real de cancelamento por faixa é
+acompanhada todo mês. Detalhes em
 [`docs/06_implantacao.md`](../docs/06_implantacao.md).
 
 **6. Por que não removeram as linhas repetidas?**

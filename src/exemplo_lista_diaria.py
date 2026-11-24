@@ -1,4 +1,4 @@
-"""Gera um exemplo da lista diária de alto risco que a equipe de reservas receberia.
+"""Gera um exemplo da lista diária de alto risco que o radar produz.
 
 Usa as reservas de teste (2017) já com nota de risco, escolhe uma semana e mostra as 10 da faixa
 alta com mais receita em jogo, com colunas em linguagem de gerente. Não faz nenhuma análise
@@ -25,7 +25,7 @@ def gerar_lista() -> pd.DataFrame:
         & (reservas["data_chegada"] <= FIM_SEMANA)
         & (reservas["faixa_risco"] == "Alto")
     ]
-    # Dentro da faixa alta, a equipe começa pelas reservas com mais receita em jogo.
+    # Dentro da faixa alta, a lista é ordenada pela receita em jogo.
     top = semana.sort_values(
         ["receita_estimada", "probabilidade_cancelamento"], ascending=False
     ).head(QTD)
