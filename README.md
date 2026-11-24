@@ -88,7 +88,27 @@ próximas etapas. O significado de cada coluna está no
 <!-- SEÇÃO: 2 ENTENDIMENTO DOS DADOS — Adrian (#3) -->
 ## 2. O que os dados mostram
 
-_A preencher na issue #3._
+Analisamos as **119.208 reservas** de julho de 2015 a agosto de 2017, sem separar treino e teste: o objetivo é descrever o histórico dos dois hotéis. No conjunto, **37,1% das reservas foram canceladas**; no Hotel de cidade, foram **41,8%**, contra **27,8%** no Resort.
+
+1. **Reservar com muita antecedência aparece ligado a mais cancelamentos:** **67,7%** das reservas feitas com mais de 365 dias foram canceladas, contra **9,6%** das feitas até 7 dias antes.
+2. **Quem já cancelou antes cancela de novo com mais frequência:** **91,7%**, contra **33,9%** entre quem não tinha cancelamentos anteriores.
+3. **O segmento de grupos se destaca:** **61,1%** das reservas foram canceladas, entre os segmentos com pelo menos 100 reservas. A categoria “Indefinido” teve 2 de 2 canceladas, mas é uma amostra pequena demais para comparação.
+4. **O depósito não reembolsável é um paradoxo:** **99,4%** dessas reservas aparecem como canceladas. Pode haver reservas de grupos ou operadoras feitas em bloco e liberadas depois, ou erro de registro; é um achado para o hotel investigar, não uma conclusão.
+5. **Pedidos especiais acompanham menos cancelamentos:** **47,8%** sem pedidos cancelaram, contra **16,8%** com três ou mais.
+
+**O que mais chama atenção:**
+
+![Quanto maior a antecedência, mais cancelamentos aparecem](reports/figures/02_antecedencia.png)
+
+Reservas feitas com mais de um ano de antecedência cancelam bem mais que as feitas na mesma semana.
+
+![Depósitos não reembolsáveis aparecem associados a quase todos os cancelamentos](reports/figures/02_deposito.png)
+
+O resultado é contraintuitivo e precisa ser verificado com os hotéis antes de qualquer conclusão.
+
+![Quem já cancelou antes cancela muito mais nesta base](reports/figures/02_historico.png)
+
+91,7% das reservas de hóspedes com cancelamentos anteriores também foram canceladas; isso é uma associação no histórico, não uma explicação do motivo.
 <!-- FIM: ADRIAN -->
 
 <!-- SEÇÃO: 4 MODELAGEM + 5 AVALIAÇÃO — Renato (#4) -->
