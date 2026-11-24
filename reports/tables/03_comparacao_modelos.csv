@@ -1,0 +1,6 @@
+abordagem,acerto_geral,precisao,cobertura_recall,f1,auc,f1_variacao,etapa,escolhido
+Chute ingênuo (ninguém cancela),0.6378,0.0,0.0,0.0,,,regra aplicada ao treino (2015–2016),False
+Regra do gerente,0.6745,0.5426,0.6445,0.5892,,,regra aplicada ao treino (2015–2016),False
+Regressão logística,0.8279,0.8835,0.6046,0.7178,0.8585,0.0033,validação cruzada no treino (2015–2016),False
+Floresta aleatória,0.8668,0.9024,0.7089,0.794,0.9296,0.0021,validação cruzada no treino (2015–2016),True
+Gradient boosting,0.8589,0.8878,0.6988,0.782,0.9182,0.0039,validação cruzada no treino (2015–2016),False
