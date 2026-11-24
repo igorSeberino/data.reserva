@@ -1,0 +1,3 @@
+cenario,reservas,canceladas,taxa_cancelamento_pct,receita_cancelada_eur,pct_receita_cancelada
+Cada linha é uma reserva (usado no projeto),119208,44198,37.08,16721837.12,39.15
+Linhas idênticas contam uma vez só,87228,24008,27.52,11478642.98,33.32

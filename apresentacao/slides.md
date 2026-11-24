@@ -3,133 +3,319 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+footer: "Quem vai cancelar a reserva?"
 ---
 
 <style>
+:root {
+  --tinta: #2B2D42;
+  --destaque: #C8553D;
+  --destaque-suave: #F6E3DE;
+  --cinza: #6B6F82;
+  --cinza-claro: #8D99AE;
+  --linha: #E4E2DC;
+  --fundo: #FAFAF7;
+  --cartao: #FFFFFF;
+}
 section {
-  background: #FAFAF7;
-  color: #2B2D42;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 34px;
-  padding: 50px 70px;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 30px;
+  line-height: 1.4;
+  padding: 50px 80px 64px 92px;
   justify-content: flex-start;
 }
-h1 { color: #2B2D42; font-size: 50px; line-height: 1.15; margin-bottom: 20px; }
-h2 { color: #2B2D42; font-size: 44px; line-height: 1.2; margin-bottom: 18px; }
-strong, h1 strong, h2 strong { color: #C8553D; }
-.grande { font-size: 150px; font-weight: 800; color: #C8553D; line-height: 1; margin: 10px 0; }
-.medio { font-size: 80px; font-weight: 800; color: #C8553D; line-height: 1.1; margin: 10px 0; }
-.legenda { font-size: 28px; color: #6B6F82; }
-section.capa { justify-content: center; }
-section.capa h1 { font-size: 70px; }
-section::after { color: #8D99AE; font-size: 22px; }
-table { font-size: 30px; margin-top: 10px; }
-th { background: #2B2D42; color: white; }
-img { display: block; margin: 0 auto; }
+/* faixa de cor à esquerda em todos os slides de conteúdo */
+section::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 14px;
+  background: var(--destaque);
+}
+h1, h2 { font-family: "Inter Display", "Inter", sans-serif; letter-spacing: -0.02em; }
+h2 { color: var(--tinta); font-size: 46px; font-weight: 800; line-height: 1.15; margin: 0 0 18px; }
+strong, section h1 strong, section h2 strong { color: var(--destaque); font-weight: inherit; }
+section p strong, section li strong, section td strong, .nota strong { font-weight: 700; }
+p { margin: 0 0 14px; }
+/* rótulo da parte da apresentação, acima do título */
+.rotulo {
+  display: inline-block;
+  font-size: 18px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--destaque);
+  margin-bottom: 10px;
+}
+.grande { font-family: "Inter Display", sans-serif; font-size: 190px; font-weight: 900; color: var(--destaque); line-height: 0.95; letter-spacing: -0.04em; }
+.medio { font-family: "Inter Display", sans-serif; font-size: 120px; font-weight: 900; color: var(--destaque); line-height: 1; letter-spacing: -0.03em; }
+.apoio { font-size: 34px; margin-top: 18px; }
+/* observação honesta, em letra menor, com barra à esquerda */
+.nota {
+  font-size: 22px; color: var(--cinza);
+  border-left: 4px solid var(--linha);
+  padding: 4px 0 4px 18px;
+  margin-top: 22px;
+}
+.nota strong { color: var(--tinta); }
+/* gráficos em um cartão branco */
+.grafico {
+  background: var(--cartao);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 18px 26px;
+  box-shadow: 0 6px 24px rgba(43, 45, 66, 0.06);
+  display: flex; justify-content: center;
+  margin-bottom: 18px;
+}
+.grafico img { display: block; }
+/* linha de cartões com números grandes */
+.cartoes { display: grid; gap: 26px; margin-top: 8px; }
+.cartoes.tres { grid-template-columns: repeat(3, 1fr); }
+.cartoes.dois { grid-template-columns: repeat(2, 1fr); }
+.cartao {
+  background: var(--cartao);
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: 0 6px 24px rgba(43, 45, 66, 0.06);
+}
+.cartao .numero { font-family: "Inter Display", sans-serif; font-size: 84px; font-weight: 900; color: var(--destaque); line-height: 1; letter-spacing: -0.03em; }
+.cartao .numero.neutro { color: var(--tinta); }
+.cartao .texto { font-size: 25px; margin-top: 14px; line-height: 1.35; }
+.cartao .contra { font-size: 21px; color: var(--cinza); margin-top: 8px; }
+/* tabelas */
+table { display: table; border-collapse: separate; border-spacing: 0; font-size: 26px; width: 100%; margin-top: 6px; border-radius: 14px; overflow: hidden; border: 1px solid var(--linha); }
+th { background: var(--tinta); color: #fff; font-weight: 600; text-align: left; padding: 14px 22px; border: none; }
+td { background: var(--cartao); padding: 14px 22px; border: none; border-top: 1px solid var(--linha); }
+tr:nth-child(even) td { background: #F4F3EF; }
+/* rodapé e numeração */
+footer { color: var(--cinza-claro); font-size: 16px; left: 92px; bottom: 26px; }
+section::after { color: var(--cinza-claro); font-size: 18px; right: 60px; bottom: 24px; }
+/* capa e encerramento: fundo escuro */
+section.escuro { background: var(--tinta); color: #fff; justify-content: center; }
+section.escuro h1 { color: #fff; font-size: 80px; font-weight: 900; line-height: 1.05; margin: 0 0 24px; }
+section.escuro strong, section.escuro h1 strong { color: #F08A73; }
+section.escuro .rotulo { color: #F08A73; }
+section.escuro .legenda { color: #B9BDCB; font-size: 24px; margin-top: 50px; }
+section.escuro footer, section.escuro::after { color: #6F7390; }
+ol { margin: 0; padding-left: 1.2em; }
+ol li { margin: 8px 0; }
+ol li::marker { color: var(--destaque); font-weight: 800; }
 </style>
 
-<!-- _class: capa -->
+<!-- _class: escuro -->
 <!-- _paginate: false -->
+<!-- _footer: "" -->
 
-# Quem vai cancelar a reserva?
+<span class="rotulo">Projeto de análise de dados · Hotelaria</span>
+
+# Quem vai cancelar<br>a reserva?
 
 Um **radar de risco** para os dois hotéis
 
-<span class="legenda">Adrian Cesar · Gabriel Carvalho · Igor Seberino · Renato Colin</span>
+<div class="legenda">Adrian Cesar · Gabriel Carvalho · Igor Seberino · Renato Colin</div>
 
 ---
+
+<span class="rotulo">O problema</span>
 
 ## Quase **4 em cada 10** reservas são canceladas
 
 <div class="grande">37%</div>
 
-44 mil das 119 mil reservas, em pouco mais de 2 anos.
+<div class="apoio">44 mil das 119 mil reservas, de julho de 2015 a agosto de 2017.</div>
+
+<div class="nota">Se cada linha repetida do arquivo contar uma vez só, a taxa é <strong>28%</strong>: ainda mais de 1 em cada 4 reservas.</div>
 
 ---
 
-## Isso deixou **€ 16,7 milhões** em quartos vazios
+<span class="rotulo">O problema</span>
 
-<div class="medio">€ 16,7 mi</div>
+## **€ 16,7 milhões** em reservas canceladas
 
-São **39%** de toda a receita reservada. Ninguém sabia quem ia cancelar.
+<div class="cartoes dois">
+  <div class="cartao">
+    <div class="numero">€ 16,7 mi</div>
+    <div class="texto">em diárias de reservas que foram canceladas</div>
+  </div>
+  <div class="cartao">
+    <div class="numero">39%</div>
+    <div class="texto">de toda a receita que estava reservada</div>
+  </div>
+</div>
+
+<div class="nota">É o valor que <strong>estava reservado</strong> (diária × noites), não o prejuízo: parte pode ter sido revendida ou retida como depósito. Contando as linhas repetidas uma vez só, são € 11,5 mi.</div>
 
 ---
+
+<span class="rotulo">Os dados</span>
 
 ## Antes de analisar, organizamos **119 mil reservas**
 
-![h:360](../reports/figures/01_funil_da_limpeza.png)
+<div class="grafico"><img src="../reports/figures/01_funil_da_limpeza.png" style="height:240px"></div>
 
-Só 182 eram impossíveis. O resto ficou.
+Só **182** eram impossíveis e saíram. O resto ficou.
+
+<div class="nota">Cerca de 1 em cada 4 linhas é idêntica a outra. Mantivemos, porque em geral são quartos de um mesmo grupo. O efeito disso foi medido e aparece nas notas.</div>
 
 ---
+
+<span class="rotulo">O que os dados mostram</span>
 
 ## Quanto mais cedo a reserva, **maior o cancelamento**
 
-![h:330](../reports/figures/02_antecedencia.png)
+<div class="grafico"><img src="../reports/figures/02_antecedencia.png" style="height:290px"></div>
 
-**68%** cancelam com mais de 1 ano de antecedência. Na mesma semana, **10%**.
+**68%** cancelam quando reservam com mais de 1 ano de antecedência. Até 7 dias antes, **10%**.
 
 ---
+
+<span class="rotulo">O que os dados mostram</span>
 
 ## Histórico, grupos e pedidos **revelam o compromisso**
 
-- Já cancelou antes: **92%** cancelam de novo (contra 34%)
-- Reservas de grupos: **61%** cancelam
-- Com 3 pedidos especiais ou mais: **17%** (contra 48% sem pedidos)
+<div class="cartoes tres">
+  <div class="cartao">
+    <div class="numero">92%</div>
+    <div class="texto">de quem <b>já cancelou antes</b> cancela de novo</div>
+    <div class="contra">contra 34% de quem nunca cancelou</div>
+  </div>
+  <div class="cartao">
+    <div class="numero">61%</div>
+    <div class="texto">das <b>reservas de grupos</b> são canceladas</div>
+    <div class="contra">a maior taxa entre os canais</div>
+  </div>
+  <div class="cartao">
+    <div class="numero neutro">17%</div>
+    <div class="texto">de quem faz <b>3 ou mais pedidos especiais</b> cancela</div>
+    <div class="contra">contra 48% de quem não faz nenhum</div>
+  </div>
+</div>
 
 ---
+
+<span class="rotulo">O que os dados mostram</span>
 
 ## Um achado **para o hotel investigar**
 
-![h:330](../reports/figures/02_deposito.png)
+<div class="grafico"><img src="../reports/figures/02_deposito.png" style="height:250px"></div>
 
 **99%** das reservas "não reembolsáveis" cancelam. Isso contraria o esperado.
 
+<div class="nota">93% dessas linhas são repetidas. Contando cada uma uma vez só, são cerca de mil reservas, e <strong>95%</strong> delas cancelaram: o padrão continua estranho.</div>
+
 ---
+
+<span class="rotulo">A previsão</span>
 
 ## **Dá para saber antes:** o radar de risco
 
-![h:400](../reports/figures/03_faixas_de_risco.png)
+<div class="grafico"><img src="../reports/figures/03_faixas_de_risco.png" style="height:320px"></div>
 
-Faixa alta: **81%** cancelaram. Faixa baixa: **19%**.
+Faixa alta: **81%** cancelaram. Faixa baixa: **19%**. Testado em 2017, um ano que o radar nunca viu.
+
+---
+
+<span class="rotulo">A previsão</span>
+
+## O que mais pesa: **depósito, pedidos e antecedência**
+
+<div class="grafico"><img src="../reports/figures/03_fatores_de_risco.png" style="height:290px"></div>
+
+<div class="nota">O depósito lidera por causa do padrão estranho das reservas "não reembolsáveis". Por isso testamos o radar sem elas (próximos slides).</div>
 
 ---
 
-## O que mais pesa no risco: **depósito, pedidos e antecedência**
-
-![h:400](../reports/figures/03_fatores_de_risco.png)
-
----
+<span class="rotulo">A previsão</span>
 
 ## Funciona? **Sim, nos dois critérios**
 
-| Critério | Resultado |
+| Critério definido antes de modelar | Resultado em 2017 |
 |---|---|
-| Acerta mais que a regra do gerente | **Sim** (0,67 × 0,58) |
-| Faixa alta: 7 em 10 cancelam | **Sim** (81%) |
+| Avisa melhor que a regra do gerente (nota F1) | **Sim:** 0,67 contra 0,58 |
+| Na faixa alta, pelo menos 7 em cada 10 cancelam | **Sim:** 81% |
 
-Pode recuperar **€ 0,67 mi** em 8 meses (premissa: 20%).
+<div class="nota">"Avisar melhor" quer dizer menos alarme falso: de cada 10 avisos do radar, 7 cancelam (na regra, 5). A regra, porém, encontra um pouco mais de cancelamentos (7 em 10, contra 6 do radar).</div>
 
 ---
+
+<span class="rotulo">A previsão · teste de resistência</span>
+
+## E se o depósito estiver errado? **O radar continua melhor**
+
+<div class="cartoes dois">
+  <div class="cartao">
+    <div class="numero">0,54 <span style="font-size:48px;color:var(--cinza)">× 0,46</span></div>
+    <div class="texto">nota do radar contra a regra do gerente, <b>sem as reservas "não reembolsáveis"</b></div>
+    <div class="contra">mesmo um radar que nunca viu o depósito chega a 0,54</div>
+  </div>
+  <div class="cartao">
+    <div class="numero neutro">2 em 3</div>
+    <div class="texto">cancelam na faixa alta, sem essas reservas (67%)</div>
+    <div class="contra">perto da meta de 7 em 10, mas abaixo dela</div>
+  </div>
+</div>
+
+<div class="nota">O radar aprendeu padrões reais (antecedência, pedidos, canal, histórico). A investigação do depósito vai dizer se a faixa alta acerta 8 ou 7 em cada 10.</div>
+
+---
+
+<span class="rotulo">A decisão</span>
+
+## Quanto isso vale? **Até € 0,67 mi em 8 meses**
+
+<div class="cartoes dois">
+  <div class="cartao">
+    <div class="numero">€ 0,67 mi</div>
+    <div class="texto">com todas as reservas da faixa alta</div>
+  </div>
+  <div class="cartao">
+    <div class="numero neutro">€ 0,43 mi</div>
+    <div class="texto">sem as "não reembolsáveis" (o depósito pode já ter ficado com o hotel)</div>
+  </div>
+</div>
+
+<div class="nota">Premissa: o contato recupera 20% da receita das reservas da faixa alta que cancelariam. É estimativa, não promessa: o piloto vai medir o valor real.</div>
+
+---
+
+<span class="rotulo">A decisão</span>
 
 ## **A partir de amanhã:** agir conforme a faixa
 
-| Faixa | Ação |
-|---|---|
-| **Alta** | Confirmar 7 a 14 dias antes; oferecer outra data |
-| **Média** | Lembrete por e-mail |
-| **Baixa** | Nada muda |
+<div class="cartoes tres">
+  <div class="cartao" style="border-top:8px solid var(--destaque)">
+    <div class="numero" style="font-size:54px">Alta</div>
+    <div class="texto">Contato de confirmação <b>7 a 14 dias antes</b>, oferecendo outra data em vez do cancelamento</div>
+  </div>
+  <div class="cartao" style="border-top:8px solid #E3A08F">
+    <div class="numero" style="font-size:54px;color:#B5705F">Média</div>
+    <div class="texto">Lembrete simpático <b>por e-mail</b></div>
+  </div>
+  <div class="cartao" style="border-top:8px solid var(--cinza-claro)">
+    <div class="numero neutro" style="font-size:54px">Baixa</div>
+    <div class="texto">Nada muda</div>
+  </div>
+</div>
 
-Piloto de **3 meses** no Hotel de cidade (42% de cancelamento).
+<div class="apoio" style="font-size:30px">
+Piloto de **3 meses** no hotel de cidade, que tem **42%** de cancelamento.</div>
 
 ---
 
-## Próximos passos: **começar pelo piloto**
+<!-- _class: escuro -->
+<!-- _footer: "" -->
 
-1. Validar o plano com a equipe de reservas
-2. Atualizar o radar com dados recentes
-3. Investigar as reservas "não reembolsáveis"
-4. Rodar o piloto de 3 meses e comparar
-5. Decidir se amplia para o resort
+<span class="rotulo">Próximos passos</span>
 
-**Obrigado!**
+# Começar pelo **piloto**
+
+<ol style="font-size:32px; line-height:1.5">
+  <li>Investigar as reservas "não reembolsáveis" com a equipe de reservas</li>
+  <li>Validar o plano de contato com a equipe</li>
+  <li>Atualizar o radar com dados recentes</li>
+  <li>Rodar o piloto de 3 meses e comparar com o resort</li>
+  <li>Decidir se amplia para o resort</li>
+</ol>
+
+<div class="legenda"><strong>Obrigado!</strong></div>
