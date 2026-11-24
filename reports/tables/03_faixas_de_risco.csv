@@ -1,0 +1,4 @@
+faixa_risco,reservas,pct_das_reservas,cancelamentos,taxa_real_cancelamento,pct_dos_cancelamentos,receita_estimada,receita_das_canceladas
+Baixo,24452,0.602,4615,0.1887,0.2933,9245985.02,1947783.73
+Médio,6795,0.1673,3508,0.5163,0.223,3563031.22,1933878.45
+Alto,9372,0.2307,7611,0.8121,0.4837,4223293.3,3341917.72
