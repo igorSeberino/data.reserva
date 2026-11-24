@@ -65,25 +65,27 @@ Só 182 eram impossíveis. O resto ficou.
 
 ## Quanto mais cedo a reserva, **maior o cancelamento**
 
-<div class="grande">60% × 10%</div>
+![h:330](../reports/figures/02_antecedencia.png)
 
-Reservas feitas com mais de 6 meses de antecedência contra as feitas na mesma semana.
+**68%** cancelam com mais de 1 ano de antecedência. Na mesma semana, **10%**.
 
 ---
 
-## Quem se **compromete** com a viagem, vem
+## Histórico, grupos e pedidos **revelam o compromisso**
 
-- Com pedidos especiais: **19%** cancelam
-- Sem pedidos: **47%** cancelam
-- Reservas de grupos: **62%** · diretas: **15%**
+- Já cancelou antes: **92%** cancelam de novo (contra 34%)
+- Reservas de grupos: **61%** cancelam
+- Com 3 pedidos especiais ou mais: **17%** (contra 48% sem pedidos)
 
 ---
 
 ## Um achado **para o hotel investigar**
 
-<div class="grande">99%</div>
+![h:330](../reports/figures/02_deposito.png)
 
-das reservas "não reembolsáveis" cancelam (contra 27% sem depósito). Isso contraria o esperado.
+**99%** das reservas "não reembolsáveis" cancelam. Isso contraria o esperado.
+
+---
 
 ---
 

@@ -2,7 +2,7 @@
 
 Slides em [`slides.md`](slides.md), PDF em `apresentacao.pdf`. Linguagem de gerente: "radar de
 risco" = modelo; "acerto dos alertas" = precisão; "cancelamentos encontrados" = recall.
-Todos os números vêm de [`reports/tables/`](../reports/tables/) (conforme a regra D8 da issue #1).
+Todos os números vêm de [`reports/tables/`](../reports/tables/) (conforme a regra D8 da issue #1). Slides 5 a 7: tabelas `02_*`; slides 8 a 10: tabelas `03_*`.
 
 **Resumo de tempo:** Gabriel 1:40 + Igor 0:45 + Adrian 2:00 + Renato 2:15 + Gabriel 1:20 = **8:00**.
 
@@ -37,18 +37,19 @@ com 2015 e 2016 e é testado em 2017."
 ## Parte 3: o que os dados mostram (Adrian, 2:00)
 
 ### Slide 5: Quanto mais cedo a reserva, maior o cancelamento (0:40) · Adrian
-**Fala:** "A primeira descoberta é a antecedência. Quem reserva com mais de seis meses de
-antecedência cancela **60%** das vezes. Quem reserva na mesma semana, só **10%**. Faz sentido:
+**Fala:** "A primeira descoberta é a antecedência. Quem reserva com mais de um ano de
+antecedência cancela **68%** das vezes. Quem reserva até 7 dias antes, só **10%**. Faz sentido:
 quanto mais longe a viagem, mais chance de a vida mudar."
 **Transição:** "Mas não é só o prazo."
 
-### Slide 6: Quem se compromete, vem (0:40) · Adrian
-**Fala:** "Hóspedes que fazem pedidos especiais cancelam **19%**, contra **47%** dos que não fazem
-nenhum. E o canal importa: reservas de grupos cancelam 62%, as feitas direto com o hotel, 15%."
+### Slide 6: Histórico, grupos e pedidos revelam o compromisso (0:40) · Adrian
+**Fala:** "Quem já cancelou antes cancela de novo em **92%** dos casos, contra 34% de quem nunca
+cancelou. Reservas de grupos cancelam **61%**. E quem faz três pedidos especiais ou mais cancela só
+**17%**, contra **48%** de quem não faz nenhum. Quem se envolve com a viagem, vem."
 **Transição:** "Agora um achado que nos surpreendeu."
 
 ### Slide 7: Um achado para investigar (0:40) · Adrian
-**Fala:** "Reservas 'não reembolsáveis' cancelam **99%** das vezes, contra 27% das sem depósito.
+**Fala:** "Reservas 'não reembolsáveis' cancelam **99%** das vezes (14.493 de 14.586), contra 28% das sem depósito.
 Isso contraria a intuição. As hipóteses são reservas de grupo feitas em bloco e depois liberadas,
 ou erro de registro. Não é conclusão: é algo para o hotel investigar."
 **Transição:** "Com esses padrões, o Renato construiu o radar."
@@ -91,7 +92,7 @@ reservas não reembolsáveis, rodar o piloto e decidir se amplia. Cuidamos tamb�
 ## Cinco perguntas prováveis do professor
 
 **1. Por que não usaram o país no modelo?**
-Reservas com país "Portugal" (código PRT) cancelam 57%, contra 24% das demais (cálculo direto na base tratada; a origem é a decisão D5 da issue #1). Suspeitamos de registro
+Reservas com país "Portugal" (código PRT) cancelam 57%, contra 24% das demais ([`02_pais.csv`](../reports/tables/02_pais.csv)). Suspeitamos de registro
 tardio (o país pode ser corrigido só no check-in), o que seria "colar na prova". Por segurança, o
 país ficou fora (decisão D5 do planejamento).
 
