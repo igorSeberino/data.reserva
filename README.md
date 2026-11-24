@@ -42,11 +42,47 @@ O planejamento completo está na issue #1.
 <!-- SEÇÃO: 1 ENTENDIMENTO DO NEGÓCIO + 3 PREPARAÇÃO — Igor (#2) -->
 ## 1. O problema do hotel
 
-_A preencher na issue #2._
+Os dois hotéis recebem muitas reservas, mas uma parte grande delas não vira hóspede. Cada
+cancelamento, principalmente perto da data, é um quarto vazio, uma receita que não volta e
+uma equipe preparada para quem não vem. Em pouco mais de dois anos (julho de 2015 a agosto
+de 2017):
+
+| | Hotel de cidade | Resort | Os dois juntos |
+|---|---|---|---|
+| Reservas | 79.162 | 40.046 | 119.208 |
+| **Taxa de cancelamento** | **42%** | **28%** | **37%** (quase 4 em cada 10) |
+| Receita estimada das canceladas | € 10,9 milhões | € 5,8 milhões | **€ 16,7 milhões** |
+
+Os € 16,7 milhões são **39%** de toda a receita reservada (diária × noites). O objetivo é
+dar a cada reserva uma **nota de risco** (baixo, médio ou alto) para o hotel agir antes da
+chegada. Problema, objetivos, critério de sucesso e riscos em
+[`docs/01_entendimento_do_negocio.md`](docs/01_entendimento_do_negocio.md).
+Números de [`reports/tables/01_resumo_do_problema.csv`](reports/tables/01_resumo_do_problema.csv).
 
 ## 3. Preparação dos dados
 
-_A preencher na issue #2._
+Antes de analisar, organizamos a bagunça (o chamado ETL: extrair, transformar e carregar).
+O que fizemos e por quê:
+
+- **Removemos só o impossível:** 180 reservas com zero hóspedes, 1 com diária negativa e 1
+  com diária de € 5.400. São **182** de 119.390 (0,15%).
+- **Mantivemos as linhas repetidas** (31.994): sem número de reserva, não dá para provar que
+  são erro; em geral são grupos que reservaram vários quartos iguais.
+- **Preenchemos os espaços em branco:** crianças em branco viraram 0; país em branco virou
+  "Desconhecido"; agência e empresa viraram "tem ou não tem".
+- **Tiramos as colunas que "entregam a resposta"**, como a situação final da reserva: elas
+  só existem depois do cancelamento e fariam a previsão parecer perfeita sem ser.
+- **Traduzimos tudo** para o português e criamos colunas novas: total de noites, total de
+  hóspedes e receita estimada.
+- **Separamos o passado do futuro:** o modelo aprende com as chegadas até 2016 (78.589
+  reservas, o "treino") e é conferido nas de 2017 (40.619, o "teste"), que ele nunca viu.
+
+![Só 182 de 119.390 reservas eram impossíveis](reports/figures/01_funil_da_limpeza.png)
+
+Quase nada foi descartado: a base final tem **119.208 reservas** e é confiável para as
+próximas etapas. O significado de cada coluna está no
+[dicionário de dados](docs/dicionario_de_dados.md), e o passo a passo, no
+[notebook 01](notebooks/01_etl_preparacao_dos_dados.ipynb).
 <!-- FIM: IGOR -->
 
 <!-- SEÇÃO: 2 ENTENDIMENTO DOS DADOS — Adrian (#3) -->
@@ -58,11 +94,79 @@ _A preencher na issue #3._
 <!-- SEÇÃO: 4 MODELAGEM + 5 AVALIAÇÃO — Renato (#4) -->
 ## 4. Prevendo cancelamentos
 
-_A preencher na issue #4._
+**Dá para saber antes quem vai cancelar? Sim, com boa margem.** O modelo aprendeu com as
+**78.589 reservas de 2015–2016** quais combinações de características costumam terminar em
+cancelamento e depois foi testado nas **40.619 reservas de 2017**, que ele nunca tinha visto.
+Para cada reserva, ele dá uma **chance de cancelamento** e a coloca numa faixa de risco:
+**baixo** (menos de 30%), **médio** (30% a 60%) ou **alto** (60% ou mais).
+
+Para valer a pena, o modelo precisava vencer duas comparações simples:
+
+- **"Chute ingênuo"** (dizer que ninguém cancela): acerta 6 em cada 10 reservas, mas **nunca
+  avisa um cancelamento**. Mostra por que o "acerto geral" engana.
+- **"Regra do gerente"** (cancela se a reserva foi feita com mais de 90 dias de antecedência ou
+  com depósito não reembolsável): ajuda, mas de cada 10 avisos só 5 cancelam de fato.
+
+Testamos três modelos e o vencedor foi a **floresta aleatória** (300 "árvores de perguntas"
+que votam entre si), com nota F1 de **0,79** nos simulados do treino, contra **0,59** da regra
+do gerente ([`03_comparacao_modelos.csv`](reports/tables/03_comparacao_modelos.csv)). O hotel
+é avisado quando a chance passa de **37%** (limiar escolhido só com os dados de treino).
+
+![Na faixa de alto risco, 8 em cada 10 reservas cancelaram](reports/figures/03_faixas_de_risco.png)
+
+Em 2017, as faixas separaram bem as reservas: na faixa **baixa** só **19%** cancelaram; na
+**alta**, **81%**. A faixa alta tem **23% das reservas**, mas concentra **48% de todos os
+cancelamentos**.
 
 ## 5. O modelo é bom o bastante?
 
-_A preencher na issue #4._
+**Em frase de gerente (reservas de 2017):**
+
+- **Precisão:** de cada 10 reservas que o modelo marcou como "vai cancelar", **7 cancelaram**
+  de fato (regra do gerente: 5).
+- **Cobertura (recall):** de cada 10 cancelamentos que aconteceram, o modelo **avisou 6 antes**
+  (regra do gerente: 7). Ele avisa um pouco menos, mas erra muito menos; baixando o limiar, o
+  hotel pega mais cancelamentos em troca de mais alarmes falsos.
+- **Nota F1:** **0,67**, contra **0,58** da regra do gerente.
+- **AUC:** **0,84**, ou seja, em 84% das vezes o modelo dá risco maior a uma reserva que cancela
+  do que a uma que não cancela.
+
+**O que mais pesa no risco** ([`03_fatores_de_risco.csv`](reports/tables/03_fatores_de_risco.csv)):
+tipo de depósito (reservas "não reembolsáveis" cancelam 99% das vezes, um padrão estranho
+**para o hotel investigar**), pedidos especiais (quem faz pedidos cancela 19%, contra 47% de
+quem não faz), antecedência (60% das reservas feitas com mais de 6 meses cancelam, contra 10%
+das feitas na mesma semana) e o segmento de mercado.
+
+**Critério de sucesso** (definido antes de modelar, issue #1):
+
+| Critério | Meta | Resultado | Atingiu? |
+|---|---|---|---|
+| Acerta mais do que a regra do gerente (nota F1 em 2017) | > 0,58 | 0,67 | **Sim** |
+| Na faixa alta, pelo menos 7 de cada 10 cancelam | ≥ 70% | 81,2% | **Sim** |
+
+**Quanto isso pode salvar (simulação com premissas).** Ação proposta para a faixa alta:
+contato de confirmação antes da chegada e, sem resposta, liberar o quarto para revenda. As
+reservas de alto risco que cancelaram em 2017 somavam **€ 3,34 mi** (46% de toda a receita
+cancelada no período). *Premissa:* o hotel recupera só uma parte disso:
+
+| Cenário (premissa) | Receita recuperada em jan–ago/2017 | Por mês |
+|---|---|---|
+| Pessimista (10%) | € 0,33 mi | ≈ € 42 mil |
+| Moderado (20%) | € 0,67 mi | ≈ € 84 mil |
+| Otimista (30%) | € 1,00 mi | ≈ € 125 mil |
+
+Na faixa alta, **1.761 reservas (19%)** eram alarme falso: o hóspede veio. Como a ação é só um
+contato cordial, o custo é baixo, mas **nenhuma reserva é cancelada só porque o modelo deu
+risco alto**.
+
+**Limitações:** dados de 2015 a 2017 (o modelo precisa ser treinado de novo com dados
+recentes), só dois hotéis em Portugal, sem informação de fora (preço da concorrência, eventos,
+clima) e a simulação de dinheiro é uma estimativa. A nota caiu dos simulados (F1 0,79) para
+2017 (F1 0,67), o que é esperado num ano novo; a nota que vale é a de 2017.
+
+**Veredito: pronto para um piloto controlado**, começando por um hotel, com dados recentes e
+comparando com um grupo sem contato para medir o ganho real. Detalhes no
+[`notebook 03`](notebooks/03_modelo_preditivo.ipynb).
 <!-- FIM: RENATO -->
 
 <!-- SEÇÃO: 6 IMPLANTAÇÃO E RECOMENDAÇÕES — Gabriel (#5) -->
